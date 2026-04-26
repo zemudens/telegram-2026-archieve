@@ -198,6 +198,76 @@ button:hover{
   border-radius:50%;
   border:2px solid rgba(255,255,255,0.3);
 }
+  /* WRAPPER */
+.player-visual{
+  position:relative;
+  width:200px;
+  height:200px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* CD */
+.cd-img{
+  width:170px;
+  height:170px;
+  object-fit:contain;
+  z-index:1;
+  animation: spin 6s linear infinite; /* pakai ini aja biar clean */
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+}
+
+@keyframes shimmer{
+  0%{filter:hue-rotate(0deg)}
+  100%{filter:hue-rotate(360deg)}
+}
+
+/* ROTATE */
+.spin{
+  animation:spin 4s linear infinite;
+}
+
+/* GUITAR OVERLAY */
+.guitar{
+  position:absolute;
+  width:140px;
+  right:-30px;
+  top:20px;
+  transform:rotate(25deg);
+  z-index:2;
+  pointer-events:none;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+}
+
+/* TEXT */
+.tap{
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.8;
+  animation: glowText 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowText{
+  from{opacity:0.5}
+  to{opacity:1}
+}
+
+/* PLAY BUTTON */
+.play-btn{
+  margin-top:10px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  font-size:18px;
+  backdrop-filter: blur(10px);
+}
+
+.play-btn:hover{
+  transform:scale(1.1);
+}
 .spin{
   animation:spin 4s linear infinite;
 }
@@ -254,9 +324,16 @@ button:hover{
 </div>
 
 <div class="page">
-  <div class="cd" id="cd"></div>
-  <p style="margin-top:10px;">tap to play</p>
-  <button onclick="toggleMusic()">▶</button>
+
+  <div class="player-visual">
+    <img src="assets/cd.png" class="cd-img" id="cd">
+    <img src="assets/guitar.png" class="guitar">
+  </div>
+
+  <p class="tap">tap to play</p>
+
+  <button class="play-btn" onclick="toggleMusic()">▶</button>
+
 </div>
 
 <!-- NAV -->
