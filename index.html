@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>2026 Archive</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:#000;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
+
+/* CONTAINER */
+.app{
+  width:360px;
+  height:640px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 0 40px rgba(255,255,255,0.08) inset, 0 0 20px rgba(255,255,255,0.08);
+  position:relative;
+  overflow:hidden;
+  backdrop-filter: blur(20px);
+}
+
+/* HOLOGRAPHIC BG */
+.holo{
+  position:absolute;
+  inset:0;
+  background: linear-gradient(90deg, #ff6ec7, #6ef7ff, #ffffff);
+  opacity:0.2;
+  animation: holoMove 6s linear infinite;
+}
+@keyframes holoMove{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+
+/* SCANLINES */
+.scan{
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.08) 1px,
+    transparent 2px
+  );
+  opacity:0.1;
+}
+
+/* WINDOW BAR */
+.titlebar{
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  background:linear-gradient(to right, rgba(255,255,255,0.2), transparent);
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.controls span{
+  margin-left:8px;
+  cursor:pointer;
+  opacity:0.7;
+}
+.controls span:hover{
+  opacity:1;
+}
+.controls .close:hover{
+  color:#ff6b6b;
+}
+
+/* PAGE */
+.page{
+  position:absolute;
+  inset:40px 0 60px 0;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.5s ease;
+}
+.page.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* NAV */
+.nav{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 20px;
+}
+button{
+  background:rgba(255,255,255,0.1);
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+  color:white;
+  cursor:pointer;
+  backdrop-filter: blur(10px);
+}
+button:hover{
+  transform:scale(1.05);
+}
+
+/* FLOAT ICON */
+.float{
+  position:absolute;
+  top:50px;
+  left:15px;
+  font-size:22px;
+  cursor:pointer;
+  animation: floaty 4s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%{transform:translateY(-2px) rotate(-2deg)}
+  50%{transform:translateY(2px) rotate(2deg)}
+  100%{transform:translateY(-2px) rotate(-2deg)}
+}
+
+/* POPUP */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter: blur(15px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.overlay.active{display:flex;}
+
+.popup{
+  width:260px;
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  animation: pop 0.4s ease;
+}
+@keyframes pop{
+  from{transform:scale(0.7) translateY(20px);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* PAGE STYLES */
+.title{
+  font-size:28px;
+  background:linear-gradient(90deg,#fff,#ccc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 5px #fff;}
+  to{text-shadow:0 0 20px #fff;}
+}
+
+.card{
+  padding:20px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+}
+
+.choice{
+  width:100%;
+  margin-top:10px;
+}
+
+/* CD */
+.cd{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.3);
+}
+.spin{
+  animation:spin 4s linear infinite;
+}
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="holo"></div>
+<div class="scan"></div>
+
+<div class="titlebar">
+  <span>2026 archive</span>
+  <div class="controls">
+    <span>—</span>
+    <span>▢</span>
+    <span class="close">✕</span>
+  </div>
+</div>
+
+<div class="float" onclick="togglePopup()">✉</div>
+
+<!-- PAGES -->
+<div class="page active">
+  <div class="title">2026 ARCHIVE</div>
+  <p style="opacity:0.7;margin-top:10px;">some memories never closed properly</p>
+</div>
+
+<div class="page">
+  <div class="card">
+    <p>this space is safe...<br>you can stay here a little longer</p>
+  </div>
+</div>
+
+<div class="page">
+  <h1>?</h1>
+  <p style="opacity:0.5">tell me honestly</p>
+  <h3 style="margin-top:10px;background:linear-gradient(#c084fc,#fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+    do you still think about it?
+  </h3>
+</div>
+
+<div class="page">
+  <button class="choice" onclick="openModal()">fix the status</button>
+  <button class="choice">keep the mystery</button>
+</div>
+
+<div class="page">
+  <div class="cd" id="cd"></div>
+  <p style="margin-top:10px;">tap to play</p>
+  <button onclick="toggleMusic()">▶</button>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="prev()">back</button>
+  <button onclick="next()">next</button>
+</div>
+
+<!-- POPUP -->
+<div class="overlay" id="popup" onclick="togglePopup()">
+  <div class="popup" onclick="event.stopPropagation()">
+    <p>i never really archived you...</p>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="modal" onclick="closeModal()">
+  <div class="popup" onclick="event.stopPropagation()">
+    <p>some things were meant to stay unfinished</p>
+    <br>
+    <button onclick="closeModal()">[ close ]</button>
+  </div>
+</div>
+
+<audio id="audio" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+</div>
+
+<script>
+let page=0;
+const pages=document.querySelectorAll(".page");
+
+function showPage(){
+  pages.forEach(p=>p.classList.remove("active"));
+  pages[page].classList.add("active");
+}
+
+function next(){
+  if(page<4){page++;showPage();}
+}
+function prev(){
+  if(page>0){page--;showPage();}
+}
+
+function togglePopup(){
+  document.getElementById("popup").classList.toggle("active");
+}
+
+function openModal(){
+  document.getElementById("modal").classList.add("active");
+}
+function closeModal(){
+  document.getElementById("modal").classList.remove("active");
+}
+
+let playing=false;
+const audio=document.getElementById("audio");
+const cd=document.getElementById("cd");
+
+function toggleMusic(){
+  if(!playing){
+    audio.currentTime=0;
+    audio.play().catch(()=>{
+      audio.muted=true;
+      audio.play();
+      audio.muted=false;
+    });
+    cd.classList.add("spin");
+  }else{
+    audio.pause();
+    cd.classList.remove("spin");
+  }
+  playing=!playing;
+}
+</script>
+
+</body>
+</html>
