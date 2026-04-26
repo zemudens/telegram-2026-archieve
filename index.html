@@ -296,10 +296,20 @@ button:hover{
   opacity:1;
 }
 
-  .msg-icon{
-  width:18px;   /* sesuaikan ukuran */
+.msg-icon{
+  width:22px;
   height:auto;
   object-fit:contain;
+  animation: shakeSoft 2.5s infinite ease-in-out;
+}
+
+/* animasi getar halus */
+@keyframes shakeSoft{
+  0%{ transform:translateX(0) }
+  25%{ transform:translateX(-1px) }
+  50%{ transform:translateX(1px) }
+  75%{ transform:translateX(-1px) }
+  100%{ transform:translateX(0) }
 }
 
 /* BADGE */
@@ -516,15 +526,19 @@ function toggleMusic(){
 
   playing=!playing;
 }
-  function toggleMessage(){
+function toggleMessage(){
   const box = document.getElementById("messageBox");
   const badge = document.querySelector(".badge");
+  const icon = document.querySelector(".msg-icon");
 
   box.classList.toggle("active");
 
-  // hilangin notif "new" setelah dibuka
   if(badge){
     badge.style.display = "none";
+  }
+
+  if(icon){
+    icon.style.animation = "none"; // stop getar
   }
 }
 </script>
