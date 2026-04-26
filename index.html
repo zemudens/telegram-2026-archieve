@@ -284,8 +284,8 @@ button:hover{
   /* MESSAGE BUTTON */
 .message-btn{
   position:absolute;
-  top:50px;   /* sejajar sama icon lama */
-  left:15px;  /* pindah ke kiri */
+  top:32px;   /* 🔥 lebih naik */
+  left:15px;
   font-size:18px;
   cursor:pointer;
   opacity:0.9;
@@ -294,6 +294,12 @@ button:hover{
 
 .message-btn:hover{
   opacity:1;
+}
+
+  .msg-icon{
+  width:18px;   /* sesuaikan ukuran */
+  height:auto;
+  object-fit:contain;
 }
 
 /* BADGE */
@@ -394,10 +400,10 @@ button:hover{
 <div class="page">
 
   <!-- ✅ MESSAGE BUTTON DI SINI -->
-  <div class="message-btn" onclick="toggleMessage()">
-    💬
-    <span class="badge">new</span>
-  </div>
+<div class="message-btn" onclick="toggleMessage()">
+  <img src="assets/message.png" class="msg-icon">
+  <span class="badge">new</span>
+</div>
   <div class="message-box" id="messageBox" onclick="toggleMessage()">
   <div class="message-text">
     we were a mismatch of frequencies back then. i let go because i didn't know how to stay.<br><br>
