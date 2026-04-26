@@ -214,7 +214,6 @@ button:hover{
   height:170px;
   object-fit:contain;
   z-index:1;
-  animation: spin 6s linear infinite; /* pakai ini aja biar clean */
   filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
 }
 
@@ -256,13 +255,21 @@ button:hover{
 /* PLAY BUTTON */
 .play-btn{
   margin-top:10px;
-  width:60px;
-  height:60px;
+  width:70px;
+  height:70px;
   border-radius:50%;
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(255,255,255,0.2);
-  font-size:18px;
   backdrop-filter: blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.play-btn img{
+  width:26px;
+  height:26px;
+  object-fit:contain;
 }
 
 .play-btn:hover{
@@ -332,7 +339,9 @@ button:hover{
 
   <p class="tap">Listen to this, then check the message.</p>
 
-  <button class="play-btn" onclick="toggleMusic()">▶</button>
+  <button class="play-btn" onclick="toggleMusic()">
+  <img src="assets/play.png" id="playIcon">
+</button>
 
 </div>
 
@@ -394,20 +403,32 @@ function closeModal(){
 let playing=false;
 const audio=document.getElementById("audio");
 const cd=document.getElementById("cd");
+const icon=document.getElementById("playIcon");
+
+  audio.addEventListener("ended", ()=>{
+  playing=false;
+  cd.classList.remove("spin");
+  icon.src="assets/play.png";
+});
 
 function toggleMusic(){
   if(!playing){
     audio.currentTime=0;
+
     audio.play().catch(()=>{
       audio.muted=true;
       audio.play();
       audio.muted=false;
     });
+
     cd.classList.add("spin");
+    icon.src="assets/pause.png"; // 🔥 ganti icon ke pause
   }else{
     audio.pause();
     cd.classList.remove("spin");
+    icon.src="assets/play.png"; // 🔥 balik ke play
   }
+
   playing=!playing;
 }
 </script>
