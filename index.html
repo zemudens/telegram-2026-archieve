@@ -345,13 +345,22 @@ button:hover{
 
 /* TEXT STYLE */
 .message-text{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
+  background:rgba(0,0,0,0.45); /* 🔥 lebih gelap biar kontras */
+  backdrop-filter: blur(25px); /* 🔥 blur lebih kuat */
+  -webkit-backdrop-filter: blur(25px); /* support iOS */
+
   padding:20px;
   border-radius:14px;
+
   font-size:13px;
   line-height:1.6;
   text-align:left;
+
+  color:#fff;
+
+  box-shadow:0 0 20px rgba(0,0,0,0.4); /* depth biar keliatan */
+  border:1px solid rgba(255,255,255,0.1);
+
   animation:fadeIn 0.5s ease;
 }
 
