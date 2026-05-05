@@ -34,6 +34,21 @@ body{
   backdrop-filter: blur(20px);
 }
 
+/* 🔥 BOOT SCREEN */
+.boot{
+  position:absolute;
+  inset:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:2px;
+  z-index:999;
+  animation:fadeOut 2.5s forwards 2s;
+}
+
 /* HOLOGRAPHIC BG */
 .holo{
   position:absolute;
@@ -396,6 +411,21 @@ button:hover{
 <body>
 
 <div class="app">
+
+<div class="app">
+
+  <!-- 🔥 TARO DI SINI -->
+  <div class="boot" id="boot">
+    <p>recovering lost data...</p>
+    <p>restoring memory fragments...</p>
+  </div>
+
+  <div class="holo"></div>
+  <div class="scan"></div>
+
+  <div class="titlebar">
+    ...
+  </div>
 
 <div class="holo"></div>
 <div class="scan"></div>
