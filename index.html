@@ -205,8 +205,18 @@ button:hover{
 }
 
 .choice{
+  display:block;
   width:100%;
-  margin-top:10px;
+  text-decoration:none;
+  color:white;
+  margin-top:6px; /* lebih deket */
+  font-size:14px;
+  opacity:0.7;
+}
+
+.choice:hover{
+  opacity:1;
+  transform:translateY(-1px);
 }
 
 /* CD */
@@ -460,8 +470,9 @@ button:hover{
 </div>
 
 <div class="page">
-  <button class="choice" onclick="openModal()">fix the status</button>
-  <button class="choice">keep the mystery</button>
+<a href="https://t.me/aintgely" target="_blank" class="choice">
+  fix the status
+</a>
   
 </div>
 
