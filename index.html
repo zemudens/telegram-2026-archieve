@@ -412,16 +412,11 @@ button:hover{
 
 <div class="app">
 
-<div class="app">
-
   <!-- 🔥 TARO DI SINI -->
   <div class="boot" id="boot">
     <p>recovering lost data...</p>
     <p>restoring memory fragments...</p>
   </div>
-
-  <div class="holo"></div>
-  <div class="scan"></div>
 
   <div class="titlebar">
     ...
@@ -529,21 +524,40 @@ button:hover{
 </div>
 
 <script>
-let page=0;
-const pages=document.querySelectorAll(".page");
+/* 🔥 BOOT AUTO HIDE */
+window.addEventListener("load", ()=>{
+  setTimeout(()=>{
+    const boot = document.getElementById("boot");
+    if(boot){
+      boot.style.display = "none";
+    }
+  }, 2600);
+});
+
+/* PAGE SYSTEM */
+let page = 0;
+const pages = document.querySelectorAll(".page");
 
 function showPage(){
-  pages.forEach(p=>p.classList.remove("active"));
+  pages.forEach(p => p.classList.remove("active"));
   pages[page].classList.add("active");
 }
 
 function next(){
-  if(page<4){page++;showPage();}
-}
-function prev(){
-  if(page>0){page--;showPage();}
+  if(page < pages.length - 1){
+    page++;
+    showPage();
+  }
 }
 
+function prev(){
+  if(page > 0){
+    page--;
+    showPage();
+  }
+}
+
+/* POPUP & MODAL */
 function togglePopup(){
   document.getElementById("popup").classList.toggle("active");
 }
@@ -551,45 +565,49 @@ function togglePopup(){
 function openModal(){
   document.getElementById("modal").classList.add("active");
 }
+
 function closeModal(){
   document.getElementById("modal").classList.remove("active");
 }
 
-let playing=false;
-const audio=document.getElementById("audio");
-const cd=document.getElementById("cd");
-const icon=document.getElementById("playIcon");
+/* MUSIC PLAYER */
+let playing = false;
+const audio = document.getElementById("audio");
+const cd = document.getElementById("cd");
+const icon = document.getElementById("playIcon");
 
-  audio.addEventListener("ended", ()=>{
-  playing=false;
+audio.addEventListener("ended", ()=>{
+  playing = false;
   cd.classList.remove("spin");
-  icon.src="assets/play.png";
+  icon.src = "assets/play.png";
 });
 
 function toggleMusic(){
   if(!playing){
-    audio.currentTime=0;
+    audio.currentTime = 0;
 
     audio.play().catch(()=>{
-      audio.muted=true;
+      audio.muted = true;
       audio.play();
-      audio.muted=false;
+      audio.muted = false;
     });
 
     cd.classList.add("spin");
-    icon.src="assets/pause.png"; // 🔥 ganti icon ke pause
+    icon.src = "assets/pause.png";
   }else{
     audio.pause();
     cd.classList.remove("spin");
-    icon.src="assets/play.png"; // 🔥 balik ke play
+    icon.src = "assets/play.png";
   }
 
-  playing=!playing;
+  playing = !playing;
 }
+
+/* MESSAGE */
 function toggleMessage(){
   const box = document.getElementById("messageBox");
   const badge = document.querySelector(".badge");
-  const icon = document.querySelector(".msg-icon");
+  const iconMsg = document.querySelector(".msg-icon");
 
   box.classList.toggle("active");
 
@@ -597,8 +615,8 @@ function toggleMessage(){
     badge.style.display = "none";
   }
 
-  if(icon){
-    icon.style.animation = "none"; // stop getar
+  if(iconMsg){
+    iconMsg.style.animation = "none";
   }
 }
 </script>
