@@ -209,14 +209,34 @@ button:hover{
   width:100%;
   text-decoration:none;
   color:white;
-  margin-top:6px; /* lebih deket */
+  margin-top:6px;
   font-size:14px;
   opacity:0.7;
+  letter-spacing:1px;
+
+  position:relative;
+}
+
+/* garis tipis bawah (aesthetic) */
+.choice::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:0%;
+  height:1px;
+  background:white;
+  opacity:0.6;
+  transition:0.3s ease;
 }
 
 .choice:hover{
   opacity:1;
   transform:translateY(-1px);
+}
+
+.choice:hover::after{
+  width:100%;
 }
 
 /* CD */
@@ -412,6 +432,31 @@ button:hover{
 
   animation:fadeIn 0.5s ease;
 }
+/* GLITCH SCREEN */
+.glitch-screen{
+  position:absolute;
+  inset:0;
+  background:black;
+  opacity:0;
+  pointer-events:none;
+  z-index:999;
+}
+
+/* aktif */
+.glitch-screen.active{
+  opacity:1;
+  animation: glitchFlash 0.6s steps(2) infinite;
+}
+
+/* efek glitch */
+@keyframes glitchFlash{
+  0%{ background:black; }
+  20%{ background:#fff; }
+  40%{ background:#000; }
+  60%{ background:#0ff; }
+  80%{ background:#000; }
+  100%{ background:#fff; }
+}
 
 /* ANIM */
 @keyframes fadeIn{
@@ -470,10 +515,9 @@ button:hover{
 </div>
 
 <div class="page">
-<a href="https://t.me/aintgely" target="_blank" class="choice">
-  fix the status
-</a>
-  
+  <a href="https://t.me/aintgely" id="fixBtn" class="choice">
+    fix the status
+  </a>
 </div>
 
 <div class="page">
@@ -530,7 +574,7 @@ button:hover{
   <source src="assets/song.mp3" type="audio/mpeg">
 </audio>
 
-</div>
+<div class="glitch-screen" id="glitch"></div>
 
 <script>
 /* 🔥 BOOT AUTO HIDE */
@@ -627,6 +671,23 @@ function toggleMessage(){
   if(iconMsg){
     iconMsg.style.animation = "none";
   }
+}
+
+/* 🔥 TARO DI SINI (PALING BAWAH) */
+const fixBtn = document.getElementById("fixBtn");
+const glitch = document.getElementById("glitch");
+
+if(fixBtn){
+  fixBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+
+    glitch.classList.add("active");
+
+    setTimeout(()=>{
+      window.open("https://t.me/aintgely", "_blank");
+      glitch.classList.remove("active");
+    }, 700);
+  });
 }
 </script>
 
