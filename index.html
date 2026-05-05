@@ -230,13 +230,17 @@ button:hover{
 /* GUITAR OVERLAY */
 .guitar{
   position:absolute;
-  width:150px;
-  right:-40px;
-  top:-10px;
-  transform:rotate(28deg);
+  width:130px;              /* 🔽 sedikit lebih kecil biar proporsional */
+  
+  top:10px;                 /* 🔽 turunin dikit */
+  right:-20px;              /* 🔽 lebih dekat ke CD */
+
+  transform:rotate(12deg);  /* 🔥 sebelumnya 28deg → terlalu miring */
+
   z-index:2;
   pointer-events:none;
-  filter: drop-shadow(0 0 15px rgba(255,255,255,0.25));
+
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
 }
 
 /* TEXT */
