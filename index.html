@@ -336,21 +336,16 @@ button:hover{
   /* MESSAGE BUTTON */
 .message-btn{
   position:absolute;
-  top:6px;   /* 🔼 lebih mentok ke atas */
-  left:8px;  /* 🔼 lebih ke kiri */
-
-  width:42px;   /* samain sama icon */
-  height:42px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
+  top:2px;     /* 🔽 lebih mentok */
+  left:2px;    /* 🔽 lebih mentok */
   z-index:20;
 }
 
-.message-btn:hover{
-  opacity:1;
+/* 🔥 ini kunci */
+.icon-wrap{
+  position:relative;
+  width:42px;
+  height:42px;
 }
 
 .msg-icon{
@@ -369,24 +364,20 @@ button:hover{
   100%{ transform:translateX(0) }
 }
 
-/* BADGE */
+/* 🔥 badge nempel ke icon */
 .badge{
   position:absolute;
-
-  top:-6px;      /* 🔼 naik */
-  right:-8px;    /* 🔼 keluar dikit dari icon */
+  top:-5px;
+  right:-6px;
 
   background:#ff4d6d;
   color:white;
-
-  font-size:7px;  /* 🔽 lebih kecil biar rapet */
+  font-size:7px;
   padding:2px 6px;
-
   border-radius:999px;
 
-  box-shadow:0 0 8px rgba(255,77,109,0.6); /* glow tipis */
+  line-height:1;
 }
-
 /* MESSAGE BOX */
 .message-box{
   position:absolute;
@@ -531,8 +522,10 @@ button:hover{
 
   <!-- ✅ MESSAGE BUTTON DI SINI -->
 <div class="message-btn" onclick="toggleMessage()">
-  <img src="assets/message.png" class="msg-icon">
-  <span class="badge">new</span>
+  <div class="icon-wrap">
+    <img src="assets/message.png" class="msg-icon">
+    <span class="badge">new</span>
+  </div>
 </div>
   <div class="message-box" id="messageBox" onclick="toggleMessage()">
   <div class="message-text">
