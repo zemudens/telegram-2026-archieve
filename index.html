@@ -3,693 +3,281 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>2026 Archive</title>
+<title>∞ archive</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: "Segoe UI", sans-serif;
 }
 
 body{
-  background:#000;
   height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-}
-
-/* CONTAINER */
-.app{
-  width:360px;
-  height:640px;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,0.15);
-  box-shadow:0 0 40px rgba(255,255,255,0.08) inset, 0 0 20px rgba(255,255,255,0.08);
-  position:relative;
   overflow:hidden;
-  backdrop-filter: blur(20px);
-}
-
-/* 🔥 BOOT SCREEN */
-.boot{
-  position:absolute;
-  inset:0;
-  background:#000;
+  background:
+    radial-gradient(circle at top, #1a1a1a 0%, #050505 60%);
+  font-family:'Inter',sans-serif;
   display:flex;
-  flex-direction:column;
+  align-items:center;
   justify-content:center;
-  align-items:center;
-  font-size:12px;
-  letter-spacing:2px;
-  z-index:999;
-  animation:fadeOut 2.5s forwards 2s;
-}
-
-/* HOLOGRAPHIC BG */
-.holo{
-  position:absolute;
-  inset:0;
-  background: linear-gradient(90deg, #ff6ec7, #6ef7ff, #ffffff);
-  opacity:0.2;
-  animation: holoMove 6s linear infinite;
-}
-@keyframes holoMove{
-  0%{transform:translateX(-100%)}
-  100%{transform:translateX(100%)}
-}
-
-/* SCANLINES */
-.scan{
-  position:absolute;
-  inset:0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.08) 1px,
-    transparent 2px
-  );
-  opacity:0.1;
-}
-
-/* WINDOW BAR */
-.titlebar{
-  height:28px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 10px;
-  background:linear-gradient(to right, rgba(255,255,255,0.2), transparent);
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.controls span{
-  margin-left:8px;
-  cursor:pointer;
-  opacity:0.7;
-}
-.controls span:hover{
-  opacity:1;
-}
-.controls .close:hover{
-  color:#ff6b6b;
-}
-
-/* PAGE */
-.page{
-  position:absolute;
-  inset:40px 0 60px 0;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  opacity:0;
-  transform:translateY(20px);
-  transition:0.5s ease;
-}
-.page.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* NAV */
-.nav{
-  position:absolute;
-  bottom:10px;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  padding:0 20px;
-}
-button{
-  background:none;      /* ❌ hilangin background */
-  border:none;
-  padding:8px 14px;
   color:white;
-  cursor:pointer;
-  font-size:13px;
-  opacity:0.7;
 }
 
-/* hover effect biar tetap hidup */
-button:hover{
-  opacity:1;
-  transform:translateY(-1px);
-}
-
-/* FLOAT ICON */
-.float{
-  position:absolute;
-  top:80px;
-  left:15px;
-  font-size:22px;
-  cursor:pointer;
-  animation: floaty 4s ease-in-out infinite;
-}
-@keyframes floaty{
-  0%{transform:translateY(-2px) rotate(-2deg)}
-  50%{transform:translateY(2px) rotate(2deg)}
-  100%{transform:translateY(-2px) rotate(-2deg)}
-}
-
-/* POPUP */
-.overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter: blur(15px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.overlay.active{display:flex;}
-
-.popup{
-  width:260px;
-  padding:20px;
-  border-radius:16px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.2);
-  backdrop-filter: blur(20px);
-  animation: pop 0.4s ease;
-}
-@keyframes pop{
-  from{transform:scale(0.7) translateY(20px);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-/* PAGE STYLES */
-.title{
-  font-size:28px;
-  background:linear-gradient(90deg,#fff,#ccc);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation: glow 2s infinite alternate;
-}
-@keyframes glow{
-  from{text-shadow:0 0 5px #fff;}
-  to{text-shadow:0 0 20px #fff;}
-}
-
-.card{
-  padding:20px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
-}
-
-.choice{
-  display:block;
-  width:100%;
-  text-decoration:none;
-  color:white;
-  margin-top:6px;
-  font-size:14px;
-  opacity:0.7;
-  letter-spacing:1px;
-
-  position:relative;
-}
-
-/* garis tipis bawah (aesthetic) */
-.choice::after{
+/* grain overlay */
+body::before{
   content:"";
   position:absolute;
-  left:0;
-  bottom:-2px;
-  width:0%;
-  height:1px;
-  background:white;
-  opacity:0.6;
-  transition:0.3s ease;
-}
-
-.choice:hover{
-  opacity:1;
-  transform:translateY(-1px);
-}
-
-.choice:hover::after{
-  width:100%;
-}
-
-/* CD */
-.cd{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,0.3);
-}
-  /* WRAPPER */
-.player-visual{
-  position:relative;
-  width:260px;
-  height:220px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* CD */
-.cd-img{
-  width:170px;
-  height:170px;
-  object-fit:contain;
-  z-index:1;
-  filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
-}
-
-@keyframes shimmer{
-  0%{filter:hue-rotate(0deg)}
-  100%{filter:hue-rotate(360deg)}
-}
-
-/* ROTATE */
-.spin{
-  animation:spin 4s linear infinite;
-}
-
-/* GUITAR OVERLAY */
-.guitar{
-  position:absolute;
-  width:130px;              /* 🔽 sedikit lebih kecil biar proporsional */
-  
-  top:10px;                 /* 🔽 turunin dikit */
-  right:-5px;              /* 🔽 lebih dekat ke CD */
-
-  transform:rotate(12deg);  /* 🔥 sebelumnya 28deg → terlalu miring */
-
-  z-index:2;
-  pointer-events:none;
-
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));
-}
-
-/* TEXT */
-.tap{
-  margin-top:20px;
-  font-size:14px;
-  opacity:0.8;
-  animation: glowText 2s ease-in-out infinite alternate;
-}
-
-@keyframes glowText{
-  from{opacity:0.5}
-  to{opacity:1}
-}
-
-/* PLAY BUTTON */
-.play-btn{
-  margin-top:10px;
-  background:none;
-  border:none;
-  padding:0;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.play-btn img{
-  width:40px; /* bisa kamu adjust */
-  height:auto;
-  object-fit:contain;
-  transform:scale(0.9);
-}
-
-.play-btn:hover{
-  transform:scale(1.1);
-}
-.spin{
-  animation:spin 4s linear infinite;
-}
-@keyframes spin{
-  from{transform:rotate(0)}
-  to{transform:rotate(360deg)}
-}
-  /* MESSAGE BUTTON */
-.message-btn{
-  position:absolute;
-  top:10px;     /* 🔽 lebih mentok */
-  left:2px;    /* 🔽 lebih mentok */
-  z-index:20;
-}
-
-/* 🔥 ini kunci */
-.icon-wrap{
-  position:relative;
-  width:42px;
-  height:42px;
-}
-
-.msg-icon{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-}
-
-/* animasi getar halus */
-@keyframes shakeSoft{
-  0%{ transform:translateX(0) }
-  25%{ transform:translateX(-1px) }
-  50%{ transform:translateX(1px) }
-  75%{ transform:translateX(-1px) }
-  100%{ transform:translateX(0) }
-}
-
-/* 🔥 badge nempel ke icon */
-.badge{
-  position:absolute;
-  top:-5px;
-  right:-6px;
-
-  background:#ff4d6d;
-  color:white;
-  font-size:7px;
-  padding:2px 6px;
-  border-radius:999px;
-
-  line-height:1;
-}
-/* MESSAGE BOX */
-.message-box{
-  position:absolute;
   inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-
-  opacity:0;
+  background:url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity:.08;
+  mix-blend-mode:soft-light;
   pointer-events:none;
-  transition:0.4s ease;
-
-  z-index:50;
-
-  background: rgba(0,0,0,0.55); /* 🔥 ini penting */
-  backdrop-filter: blur(12px);  /* 🔥 blur seluruh background */
 }
 
-/* ACTIVE */
-.message-box.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* TEXT STYLE */
-.message-text{
-  position: relative; /* WAJIB buat pseudo layer */
-
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.55),
-    rgba(0,0,0,0.8)
-  );
-
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  padding:20px;
-  border-radius:14px;
-
-  font-size:13px;
-  line-height:1.6;
-  text-align:left;
-  color:#fff;
-
-  border:1px solid rgba(255,255,255,0.12);
-
+/* main card */
+.container{
+  position:relative;
+  width:370px;
+  height:700px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(20px);
+  border-radius:32px;
+  overflow:hidden;
   box-shadow:
-    0 0 25px rgba(0,0,0,0.7),
-    inset 0 0 12px rgba(255,255,255,0.05);
-
-  text-shadow: 0 0 6px rgba(0,0,0,0.9);
-
-  animation:fadeIn 0.5s ease;
+    0 0 60px rgba(255,255,255,.03),
+    inset 0 0 30px rgba(255,255,255,.03);
 }
-/* GLITCH SCREEN */
-.glitch-screen{
+
+/* top text */
+.header{
+  position:absolute;
+  top:30px;
+  left:30px;
+  z-index:5;
+}
+
+.header h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:15px;
+  letter-spacing:4px;
+  font-weight:600;
+  opacity:.8;
+}
+
+.header p{
+  margin-top:8px;
+  font-size:12px;
+  opacity:.45;
+  letter-spacing:2px;
+}
+
+/* infinity wrapper */
+.infinity-wrap{
   position:absolute;
   inset:0;
-  background:black;
-  opacity:0;
-  pointer-events:none;
-  z-index:999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* aktif */
-.glitch-screen.active{
-  opacity:1;
-  animation: glitchFlash 0.6s steps(2) infinite;
+/* infinity shape */
+.infinity{
+  position:relative;
+  width:270px;
+  height:140px;
+  animation:float 6s ease-in-out infinite;
 }
 
-/* efek glitch */
-@keyframes glitchFlash{
-  0%{ background:black; }
-  20%{ background:#fff; }
-  40%{ background:#000; }
-  60%{ background:#0ff; }
-  80%{ background:#000; }
-  100%{ background:#fff; }
+/* path glow */
+.infinity::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:100px;
+  filter:blur(40px);
+  background:rgba(255,255,255,.08);
 }
 
-/* ANIM */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px)}
-  to{opacity:1; transform:translateY(0)}
+/* left & right loops */
+.loop{
+  position:absolute;
+  width:130px;
+  height:130px;
+  border:1.5px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+
+.left{
+  left:0;
+  top:5px;
+}
+
+.right{
+  right:0;
+  top:5px;
+}
+
+/* center crossing */
+.center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:80px;
+  height:1px;
+  background:rgba(255,255,255,.15);
+  transform:translate(-50%,-50%) rotate(-25deg);
+  filter:blur(.2px);
+}
+
+/* photos */
+.photo{
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:20px;
+  object-fit:cover;
+  filter:grayscale(.05) contrast(1.05);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transition:.5s;
+}
+
+/* floating positions */
+.p1{
+  top:18px;
+  left:18px;
+  transform:rotate(-8deg);
+}
+
+.p2{
+  bottom:18px;
+  right:18px;
+  transform:rotate(6deg);
+}
+
+.p3{
+  top:18px;
+  right:18px;
+  transform:rotate(8deg);
+}
+
+.p4{
+  bottom:18px;
+  left:18px;
+  transform:rotate(-5deg);
+}
+
+/* subtle hover */
+.photo:hover{
+  transform:scale(1.06);
+}
+
+/* bottom text */
+.footer{
+  position:absolute;
+  bottom:38px;
+  width:100%;
+  text-align:center;
+}
+
+.footer h2{
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:2px;
+  opacity:.85;
+}
+
+.footer span{
+  display:block;
+  margin-top:10px;
+  font-size:11px;
+  letter-spacing:3px;
+  opacity:.35;
+}
+
+/* little stars */
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:.6;
+  animation:blink 3s infinite;
+}
+
+.s1{top:15%;left:18%;}
+.s2{top:25%;right:20%;}
+.s3{bottom:18%;left:22%;}
+.s4{bottom:28%;right:18%;}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+@keyframes blink{
+  0%,100%{
+    opacity:.2;
+    transform:scale(1);
+  }
+  50%{
+    opacity:.8;
+    transform:scale(1.8);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-  <!-- 🔥 TARO DI SINI -->
-  <div class="boot" id="boot">
-    <p>recovering lost data...</p>
-    <p>restoring memory fragments...</p>
+  <div class="header">
+    <h1>∞ ARCHIVE</h1>
+    <p>2000s emotional interface</p>
   </div>
 
-<div class="holo"></div>
-<div class="scan"></div>
+  <div class="infinity-wrap">
 
-<div class="titlebar">
-  <span>2026 archive</span>
-  <div class="controls">
-    <span>—</span>
-    <span>▢</span>
-    <span class="close">✕</span>
+    <div class="infinity">
+
+      <div class="loop left">
+        <img src="https://i.pinimg.com/564x/2f/98/6d/2f986d3d7a82cf84e0bb6cde3aefc52b.jpg" class="photo p1">
+        <img src="https://i.pinimg.com/564x/e2/6d/43/e26d438d5cf3f5c7d839fcde4a65e5f8.jpg" class="photo p2">
+      </div>
+
+      <div class="loop right">
+        <img src="https://i.pinimg.com/564x/52/0d/2d/520d2d90fcbd53d362dbb0e3dc4c9cb1.jpg" class="photo p3">
+        <img src="https://i.pinimg.com/564x/91/67/34/9167340e3fba4e1c0b9a27c4db8d1b5f.jpg" class="photo p4">
+      </div>
+
+      <div class="center"></div>
+
+    </div>
+
   </div>
-</div>
 
-<!-- PAGES -->
-<div class="page active">
-  <div class="title">2026 ARCHIVE</div>
-  <p style="opacity:0.7;margin-top:10px;">A quiet space to store feelings that never really left.</p>
-</div>
-
-<div class="page">
-  <div class="card">
-    <p>this space is safe...<br>you can stay here a little longer</p>
+  <div class="footer">
+    <h2>you looked unreal that night</h2>
+    <span>saved permanently</span>
   </div>
-</div>
 
-<div class="page">
-  <img src="assets/questionmark.png" 
-     style="width:100px; max-height:160px; object-fit:contain;">
-  <p style="opacity:0.5">They say We can’t keep things undefined forever.</p>
-  <h3 style="margin-top:10px;background:linear-gradient(#c084fc,#fff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;">
-    Since 'friends' don't talk like we do. What’s the next move?
-  </h3>
-</div>
-
-<div class="page">
-  <a href="https://t.me/aintgely" id="fixBtn" class="choice">
-    fix the status
-  </a>
-</div>
-
-<div class="page">
-
-  <!-- ✅ MESSAGE BUTTON DI SINI -->
-<div class="message-btn" onclick="toggleMessage()">
-  <div class="icon-wrap">
-    <img src="assets/message.png" class="msg-icon">
-    <span class="badge">new</span>
-  </div>
-</div>
-  <div class="message-box" id="messageBox" onclick="toggleMessage()">
-  <div class="message-text">
-    we were a mismatch of frequencies back then. i let go because i didn't know how to stay.<br><br>
-    but time proved there’s a gap that only you can fill an unfinished feeling i couldn't delete.<br><br>
-    it started with just wanting to hear from you, but it ended with me falling all over again.<br><br>
-    just hoping that "us" in 2026 is the version that finally works.<br><br>
-  </div>
-</div>
-
-  <div class="player-visual">
-    <img src="assets/cd.png" class="cd-img" id="cd">
-    <img src="assets/guitar.png" class="guitar">
-  </div>
-  <p class="tap">Listen to this, then check the message.</p>
-
-  <button class="play-btn" onclick="toggleMusic()">
-  <img src="assets/play.png" id="playIcon">
-</button>
+  <div class="star s1"></div>
+  <div class="star s2"></div>
+  <div class="star s3"></div>
+  <div class="star s4"></div>
 
 </div>
-
-<!-- NAV -->
-<div class="nav">
-  <button onclick="prev()">back</button>
-  <button onclick="next()">next</button>
-</div>
-
-<!-- POPUP -->
-<div class="overlay" id="popup" onclick="togglePopup()">
-  <div class="popup" onclick="event.stopPropagation()">
-    <p>i never really archived you...</p>
-  </div>
-</div>
-
-<!-- MODAL -->
-<div class="overlay" id="modal" onclick="closeModal()">
-  <div class="popup" onclick="event.stopPropagation()">
-    <p>some things were meant to stay unfinished</p>
-    <br>
-    <button onclick="closeModal()">[ close ]</button>
-  </div>
-</div>
-
-<audio id="audio" loop>
-  <source src="assets/song.mp3" type="audio/mpeg">
-</audio>
-
-<div class="glitch-screen" id="glitch"></div>
-
-<script>
-/* 🔥 BOOT AUTO HIDE */
-window.addEventListener("load", ()=>{
-  setTimeout(()=>{
-    const boot = document.getElementById("boot");
-    if(boot){
-      boot.style.display = "none";
-    }
-  }, 2600);
-});
-
-/* PAGE SYSTEM */
-let page = 0;
-const pages = document.querySelectorAll(".page");
-
-function showPage(){
-  pages.forEach(p => p.classList.remove("active"));
-  pages[page].classList.add("active");
-}
-
-function next(){
-  if(page < pages.length - 1){
-    page++;
-    showPage();
-  }
-}
-
-function prev(){
-  if(page > 0){
-    page--;
-    showPage();
-  }
-}
-
-/* POPUP & MODAL */
-function togglePopup(){
-  document.getElementById("popup").classList.toggle("active");
-}
-
-function openModal(){
-  document.getElementById("modal").classList.add("active");
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.remove("active");
-}
-
-/* MUSIC PLAYER */
-let playing = false;
-const audio = document.getElementById("audio");
-const cd = document.getElementById("cd");
-const icon = document.getElementById("playIcon");
-
-audio.addEventListener("ended", ()=>{
-  playing = false;
-  cd.classList.remove("spin");
-  icon.src = "assets/play.png";
-});
-
-function toggleMusic(){
-  if(!playing){
-    audio.currentTime = 0;
-
-    audio.play().catch(()=>{
-      audio.muted = true;
-      audio.play();
-      audio.muted = false;
-    });
-
-    cd.classList.add("spin");
-    icon.src = "assets/pause.png";
-  }else{
-    audio.pause();
-    cd.classList.remove("spin");
-    icon.src = "assets/play.png";
-  }
-
-  playing = !playing;
-}
-
-/* MESSAGE */
-function toggleMessage(){
-  const box = document.getElementById("messageBox");
-  const badge = document.querySelector(".badge");
-  const iconMsg = document.querySelector(".msg-icon");
-
-  box.classList.toggle("active");
-
-  if(badge){
-    badge.style.display = "none";
-  }
-
-  if(iconMsg){
-    iconMsg.style.animation = "none";
-  }
-}
-
-/* 🔥 TARO DI SINI (PALING BAWAH) */
-const fixBtn = document.getElementById("fixBtn");
-const glitch = document.getElementById("glitch");
-
-if(fixBtn){
-  fixBtn.addEventListener("click", (e)=>{
-    e.preventDefault();
-
-    glitch.classList.add("active");
-
-    setTimeout(()=>{
-      window.open("https://t.me/aintgely", "_blank");
-      glitch.classList.remove("active");
-    }, 700);
-  });
-}
-</script>
 
 </body>
 </html>
