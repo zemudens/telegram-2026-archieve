@@ -269,15 +269,15 @@ let started = false;
 function updateLyrics() {
   const t = audio.currentTime;
 
-  // majuin index (lebih efficient daripada loop full)
-  while (
-    lyricIndex < lines.length - 1 &&
-    t >= lines[lyricIndex + 1].time
-  ) {
-    lyricIndex++;
-  }
+  for (let i = 0; i < lines.length; i++) {
+    const current = lines[i];
+    const next = lines[i + 1];
 
-  lyrics.innerText = lines[lyricIndex].text;
+    if (t >= current.time && (!next || t < next.time)) {
+      lyrics.innerText = current.text;
+      break;
+    }
+  }
 }
 
 function start() {
@@ -287,7 +287,7 @@ function start() {
   audio.volume = 0;
 
   audio.play().then(() => {
-    // fade in
+
     let v = 0;
     const fade = setInterval(() => {
       if (v < 0.35) {
@@ -298,8 +298,13 @@ function start() {
       }
     }, 100);
 
-    // sync loop
-    setInterval(updateLyrics, 100);
+    // IMPORTANT: pakai RAF biar sinkron audio (bukan setInterval kasar)
+    function loop() {
+      updateLyrics();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
 
   }).catch(err => {
     console.log("audio blocked:", err);
