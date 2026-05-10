@@ -286,17 +286,19 @@ function startAudio() {
   audio.currentTime = 0;
   lyrics.innerText = "";
 
-  audio.play().catch(()=>{});
+  audio.play().then(() => {
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.35) {
+        v += 0.02;
+        audio.volume = v;
+      } else clearInterval(fade);
+    }, 120);
 
-  let v = 0;
-  const fade = setInterval(() => {
-    if (v < 0.35) {
-      v += 0.02;
-      audio.volume = v;
-    } else clearInterval(fade);
-  }, 120);
-
-  startLyricsLoop();
+    startLyricsLoop(); // 🔥 PENTING: hanya jalan setelah audio benar-benar play
+  }).catch(err => {
+    console.log("audio blocked:", err);
+  });
 }
 
   window.addEventListener("click", startAudio, { once:true });
