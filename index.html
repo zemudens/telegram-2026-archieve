@@ -293,51 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
       } else clearInterval(fade);
     }, 120);
 
-    updateLyrics(); // langsung sync pertama
+    updateLyrics();
   }
-
-  window.addEventListener("click", startAudio, { once:true });
-  window.addEventListener("touchstart", startAudio, { once:true });
-
-});
-  
-function updateLyrics() {
-  const t = audio.currentTime;
-
-  for (let i = lines.length - 1; i >= 0; i--) {
-    if (t >= lines[i].time) {
-      lyrics.innerText = lines[i].text;
-      break;
-    }
-  }
-}
-  audio.volume = 0;
-audio.addEventListener("timeupdate", updateLyrics);
-    const t = audio.currentTime;
-    for (let i = lines.length - 1; i >= 0; i--) {
-      if (t >= lines[i].time) {
-        lyrics.innerText = lines[i].text;
-        break;
-      }
-    }
-  });
-
-  function startAudio() {
-  audio.currentTime = 0;
-  lyrics.innerText = "";
-
-  audio.play().catch(()=>{});
-
-  let v = 0;
-  const fade = setInterval(() => {
-    if (v < 0.35) {
-      v += 0.02;
-      audio.volume = v;
-    } else clearInterval(fade);
-  }, 120);
-
-  updateLyrics(); // biar langsung sync dari awal
-}
 
   window.addEventListener("click", startAudio, { once:true });
   window.addEventListener("touchstart", startAudio, { once:true });
