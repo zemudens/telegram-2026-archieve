@@ -224,15 +224,10 @@ body::before{
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lyrics = document.getElementById("lyrics");
-  lyrics.innerText = "TEST LYRICS LIVE";
-});
+const audio = document.getElementById("bgm");
+const lyrics = document.getElementById("lyrics");
 
-  const audio = document.getElementById("bgm");
-  const lyrics = document.getElementById("lyrics");
-
-  const lines = [
+const lines = [
     { time: 0, text: "" },
     { time: 59, text: "there's no sound" },
     { time: 68, text: "but the engine's drone" },
@@ -268,46 +263,51 @@ document.addEventListener("DOMContentLoaded", () => {
     { time: 291, text: "just stay with me" }
   ];
 
-function startLyricsLoop() {
-  setInterval(() => {
-    const t = audio.currentTime;
+let lyricIndex = 0;
+let started = false;
 
-    for (let i = lines.length - 1; i >= 0; i--) {
-      if (t >= lines[i].time) {
-        if (lyrics.innerText !== lines[i].text) {
-          lyrics.innerText = lines[i].text;
-        }
-        break;
-      }
-    }
-  }, 100);
+function updateLyrics() {
+  const t = audio.currentTime;
+
+  // majuin index (lebih efficient daripada loop full)
+  while (
+    lyricIndex < lines.length - 1 &&
+    t >= lines[lyricIndex + 1].time
+  ) {
+    lyricIndex++;
+  }
+
+  lyrics.innerText = lines[lyricIndex].text;
 }
+
+function start() {
+  if (started) return;
+  started = true;
 
   audio.volume = 0;
 
-function startAudio() {
-  audio.currentTime = 0;
-  lyrics.innerText = "";
-
   audio.play().then(() => {
+    // fade in
     let v = 0;
     const fade = setInterval(() => {
       if (v < 0.35) {
         v += 0.02;
         audio.volume = v;
-      } else clearInterval(fade);
-    }, 120);
+      } else {
+        clearInterval(fade);
+      }
+    }, 100);
 
-    startLyricsLoop(); // 🔥 PENTING: hanya jalan setelah audio benar-benar play
+    // sync loop
+    setInterval(updateLyrics, 100);
+
   }).catch(err => {
     console.log("audio blocked:", err);
   });
 }
 
-  window.addEventListener("click", startAudio, { once:true });
-  window.addEventListener("touchstart", startAudio, { once:true });
-
-});
+window.addEventListener("click", start, { once: true });
+window.addEventListener("touchstart", start, { once: true });
 </script>
 
 </body>
