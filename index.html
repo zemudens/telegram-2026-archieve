@@ -265,19 +265,19 @@ document.addEventListener("DOMContentLoaded", () => {
     { time: 291, text: "just stay with me" }
   ];
 
-function updateLyrics() {
-  const t = audio.currentTime;
+function startLyricsLoop() {
+  setInterval(() => {
+    const t = audio.currentTime;
 
-  for (let i = lines.length - 1; i >= 0; i--) {
-    if (t >= lines[i].time) {
-      if (lyrics.innerText !== lines[i].text) {
-        lyrics.innerText = lines[i].text;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (t >= lines[i].time) {
+        if (lyrics.innerText !== lines[i].text) {
+          lyrics.innerText = lines[i].text;
+        }
+        break;
       }
-      break;
     }
-  }
-
-  requestAnimationFrame(updateLyrics);
+  }, 100);
 }
 
   audio.volume = 0;
@@ -296,7 +296,7 @@ function startAudio() {
     } else clearInterval(fade);
   }, 120);
 
-  requestAnimationFrame(updateLyrics);
+  startLyricsLoop();
 }
 
   window.addEventListener("click", startAudio, { once:true });
