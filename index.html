@@ -229,74 +229,77 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bgm");
   const lyrics = document.getElementById("lyrics");
 
- const lines = [
+  const lines = [
     { time: 0, text: "" },
-
     { time: 59, text: "there's no sound" },
-
     { time: 68, text: "but the engine's drone" },
-
     { time: 75, text: "our minds set free" },
-
     { time: 83, text: "to roam" },
-
     { time: 104, text: "time (shift)" },
-
     { time: 108, text: "we discover the entry" },
-
     { time: 115, text: "to other planes" },
-
     { time: 118, text: "our minds bend" },
-
     { time: 124, text: "and our fingers fold" },
-
     { time: 132, text: "entwined, we dream" },
-
     { time: 140, text: "unknown" },
-
     { time: 146, text: "time (shift)" },
-
     { time: 150, text: "we discover the entry" },
-
     { time: 160, text: "stay with me" },
-
     { time: 167, text: "as we cross the empty skies" },
-
     { time: 173, text: "come sail with me" },
-
     { time: 196, text: "we slow down" },
-
     { time: 203, text: "as the engines stall" },
-
     { time: 211, text: "our eyes catch sync" },
-
     { time: 219, text: "explode" },
-
     { time: 225, text: "time (shift)" },
-
     { time: 230, text: "we discover the entry" },
-
     { time: 235, text: "to other planes" },
-
     { time: 240, text: "time (shift)" },
-
     { time: 244, text: "as we collide with the energy" },
-
     { time: 251, text: "in other ways" },
-
     { time: 255, text: "stay with me" },
-
     { time: 261, text: "as we cross the empty skies" },
-
     { time: 269, text: "come sail with me" },
-
     { time: 276, text: "we play in dreams" },
-
     { time: 283, text: "as we cross through space and time" },
-
     { time: 291, text: "just stay with me" }
-
   ];
+
+  function updateLyrics() {
+    const t = audio.currentTime;
+
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (t >= lines[i].time) {
+        lyrics.innerText = lines[i].text;
+        break;
+      }
+    }
+  }
+
+  audio.volume = 0;
+  audio.addEventListener("timeupdate", updateLyrics);
+
+  function startAudio() {
+    audio.currentTime = 0;
+    lyrics.innerText = "";
+
+    audio.play().catch(()=>{});
+
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.35) {
+        v += 0.02;
+        audio.volume = v;
+      } else clearInterval(fade);
+    }, 120);
+
+    updateLyrics(); // langsung sync pertama
+  }
+
+  window.addEventListener("click", startAudio, { once:true });
+  window.addEventListener("touchstart", startAudio, { once:true });
+
+});
   
 function updateLyrics() {
   const t = audio.currentTime;
