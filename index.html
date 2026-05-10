@@ -216,6 +216,76 @@ body::before{
 .s3{bottom:18%;left:22%;}
 .s4{bottom:28%;right:18%;}
 
+/* ambient lyrics background */
+.lyrics-bg{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  z-index:0;
+  pointer-events:none;
+}
+
+.lyrics-bg span{
+  position:absolute;
+  font-family:'Orbitron',sans-serif;
+  font-size:18px;
+  letter-spacing:3px;
+  color:rgba(255,255,255,.05);
+  white-space:nowrap;
+  animation:drift linear infinite;
+  text-transform:uppercase;
+  filter:blur(.2px);
+}
+
+/* random placements */
+.lyrics-bg span:nth-child(1){
+  top:12%;
+  left:-40%;
+  animation-duration:18s;
+}
+
+.lyrics-bg span:nth-child(2){
+  top:28%;
+  left:-60%;
+  animation-duration:22s;
+  font-size:26px;
+}
+
+.lyrics-bg span:nth-child(3){
+  top:46%;
+  left:-50%;
+  animation-duration:20s;
+}
+
+.lyrics-bg span:nth-child(4){
+  top:63%;
+  left:-70%;
+  animation-duration:25s;
+}
+
+.lyrics-bg span:nth-child(5){
+  top:82%;
+  left:-55%;
+  animation-duration:21s;
+}
+
+.lyrics-bg span:nth-child(6){
+  top:40%;
+  left:-20%;
+  animation-duration:12s;
+  font-size:50px;
+  opacity:.06;
+}
+
+@keyframes drift{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(900px);
+  }
+}
+
 @keyframes float{
   0%,100%{
     transform:translateY(0px);
@@ -237,10 +307,25 @@ body::before{
 }
 </style>
 </head>
+<script>
 
+</script>
 <body>
 
+<audio id="bgm" loop>
+  <source src="assets/rosemary.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
+
+  <div class="lyrics-bg">
+    <span>I could live forever in your eyes</span>
+    <span>Rosemary...</span>
+    <span>time moves slower around you</span>
+    <span>you looked unreal that night</span>
+    <span>some memories never leave</span>
+    <span>∞</span>
+  </div>
 
   <div class="header">
     <h1>∞ ARCHIVE</h1>
@@ -278,6 +363,30 @@ body::before{
   <div class="star s4"></div>
 
 </div>
+<script>
+const audio = document.getElementById("bgm");
 
+audio.volume = 0;
+
+function startAudio() {
+  audio.play();
+
+  let vol = 0;
+  const fade = setInterval(() => {
+    if(vol < 0.35){
+      vol += 0.02;
+      audio.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 120);
+}
+
+window.addEventListener("click", startAudio, { once:true });
+window.addEventListener("touchstart", startAudio, { once:true });
+</script>
 </body>
 </html>
+
+
+
