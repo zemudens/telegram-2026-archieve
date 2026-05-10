@@ -17,8 +17,7 @@
 body{
   height:100vh;
   overflow:hidden;
-  background:
-    radial-gradient(circle at top, #1a1a1a 0%, #050505 60%);
+  background: radial-gradient(circle at top, #1a1a1a 0%, #050505 60%);
   font-family:'Inter',sans-serif;
   display:flex;
   align-items:center;
@@ -26,7 +25,6 @@ body{
   color:white;
 }
 
-/* grain overlay */
 body::before{
   content:"";
   position:absolute;
@@ -37,7 +35,6 @@ body::before{
   pointer-events:none;
 }
 
-/* main card */
 .container{
   position:relative;
   width:370px;
@@ -47,12 +44,8 @@ body::before{
   backdrop-filter:blur(20px);
   border-radius:32px;
   overflow:hidden;
-  box-shadow:
-    0 0 60px rgba(255,255,255,.03),
-    inset 0 0 30px rgba(255,255,255,.03);
 }
 
-/* top text */
 .header{
   position:absolute;
   top:30px;
@@ -64,7 +57,6 @@ body::before{
   font-family:'Orbitron',sans-serif;
   font-size:15px;
   letter-spacing:4px;
-  font-weight:600;
   opacity:.8;
 }
 
@@ -72,10 +64,8 @@ body::before{
   margin-top:8px;
   font-size:12px;
   opacity:.45;
-  letter-spacing:2px;
 }
 
-/* infinity wrapper */
 .infinity-wrap{
   position:absolute;
   inset:0;
@@ -84,7 +74,6 @@ body::before{
   justify-content:center;
 }
 
-/* infinity shape */
 .infinity{
   position:relative;
   width:270px;
@@ -92,37 +81,17 @@ body::before{
   animation:float 6s ease-in-out infinite;
 }
 
-/* path glow */
-.infinity::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:100px;
-  filter:blur(40px);
-  background:rgba(255,255,255,.08);
-}
-
-/* left & right loops */
 .loop{
   position:absolute;
   width:170px;
   height:170px;
-  border:1.5px solid rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.12);
   border-radius:50%;
-  overflow:hidden;
 }
 
-.left{
-  left:0;
-  top:5px;
-}
+.left{ left:0; top:5px; }
+.right{ right:0; top:5px; }
 
-.right{
-  right:0;
-  top:5px;
-}
-
-/* center crossing */
 .center{
   position:absolute;
   left:50%;
@@ -131,53 +100,25 @@ body::before{
   height:1px;
   background:rgba(255,255,255,.15);
   transform:translate(-50%,-50%) rotate(-25deg);
-  filter:blur(.2px);
 }
 
-/* photos */
 .photo{
   position:absolute;
   width:90px;
   height:90px;
   border-radius:20px;
   object-fit:cover;
-  object-position:center;
   filter:grayscale(.05) contrast(1.05);
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
   transition:.5s;
 }
 
-/* floating positions */
-.p1{
-  top:18px;
-  left:18px;
-  transform:rotate(-8deg);
-}
+.p1{ top:18px; left:18px; transform:rotate(-8deg); }
+.p2{ bottom:18px; right:18px; transform:rotate(6deg); }
+.p3{ top:18px; right:18px; transform:rotate(8deg); }
+.p4{ bottom:18px; left:18px; transform:rotate(-5deg); }
 
-.p2{
-  bottom:18px;
-  right:18px;
-  transform:rotate(6deg);
-}
+.photo:hover{ transform:scale(1.06); }
 
-.p3{
-  top:18px;
-  right:18px;
-  transform:rotate(8deg);
-}
-
-.p4{
-  bottom:18px;
-  left:18px;
-  transform:rotate(-5deg);
-}
-
-/* subtle hover */
-.photo:hover{
-  transform:scale(1.06);
-}
-
-/* bottom text */
 .footer{
   position:absolute;
   bottom:38px;
@@ -187,20 +128,30 @@ body::before{
 
 .footer h2{
   font-size:14px;
-  font-weight:500;
   letter-spacing:2px;
-  opacity:.85;
 }
 
 .footer span{
   display:block;
   margin-top:10px;
   font-size:11px;
-  letter-spacing:3px;
   opacity:.35;
 }
 
-/* little stars */
+.live-lyrics{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Orbitron',sans-serif;
+  font-size:16px;
+  letter-spacing:4px;
+  color:rgba(255,255,255,.08);
+  text-align:center;
+  pointer-events:none;
+}
+
 .star{
   position:absolute;
   width:3px;
@@ -216,100 +167,18 @@ body::before{
 .s3{bottom:18%;left:22%;}
 .s4{bottom:28%;right:18%;}
 
-/* ambient lyrics background */
-.lyrics-bg{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  z-index:0;
-  pointer-events:none;
-}
-
-.lyrics-bg span{
-  position:absolute;
-  font-family:'Orbitron',sans-serif;
-  font-size:18px;
-  letter-spacing:3px;
-  color:rgba(255,255,255,.05);
-  white-space:nowrap;
-  animation:drift linear infinite;
-  text-transform:uppercase;
-  filter:blur(.2px);
-}
-
-/* random placements */
-.lyrics-bg span:nth-child(1){
-  top:12%;
-  left:-40%;
-  animation-duration:18s;
-}
-
-.lyrics-bg span:nth-child(2){
-  top:28%;
-  left:-60%;
-  animation-duration:22s;
-  font-size:26px;
-}
-
-.lyrics-bg span:nth-child(3){
-  top:46%;
-  left:-50%;
-  animation-duration:20s;
-}
-
-.lyrics-bg span:nth-child(4){
-  top:63%;
-  left:-70%;
-  animation-duration:25s;
-}
-
-.lyrics-bg span:nth-child(5){
-  top:82%;
-  left:-55%;
-  animation-duration:21s;
-}
-
-.lyrics-bg span:nth-child(6){
-  top:40%;
-  left:-20%;
-  animation-duration:12s;
-  font-size:50px;
-  opacity:.06;
-}
-
-@keyframes drift{
-  from{
-    transform:translateX(0);
-  }
-  to{
-    transform:translateX(900px);
-  }
-}
-
 @keyframes float{
-  0%,100%{
-    transform:translateY(0px);
-  }
-  50%{
-    transform:translateY(-10px);
-  }
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
 }
 
 @keyframes blink{
-  0%,100%{
-    opacity:.2;
-    transform:scale(1);
-  }
-  50%{
-    opacity:.8;
-    transform:scale(1.8);
-  }
+  0%,100%{opacity:.2;}
+  50%{opacity:.8;}
 }
 </style>
 </head>
-<script>
 
-</script>
 <body>
 
 <audio id="bgm" loop>
@@ -318,14 +187,7 @@ body::before{
 
 <div class="container">
 
-  <div class="lyrics-bg">
-    <span>I could live forever in your eyes</span>
-    <span>Rosemary...</span>
-    <span>time moves slower around you</span>
-    <span>you looked unreal that night</span>
-    <span>some memories never leave</span>
-    <span>∞</span>
-  </div>
+  <div class="live-lyrics" id="lyrics"></div>
 
   <div class="header">
     <h1>∞ ARCHIVE</h1>
@@ -333,23 +195,20 @@ body::before{
   </div>
 
   <div class="infinity-wrap">
-
     <div class="infinity">
 
       <div class="loop left">
-  <img src="assets/IMG_0982.jpeg" class="photo p1">
-  <img src="assets/IMG_0986.jpeg" class="photo p2">
-</div>
+        <img src="assets/IMG_0982.jpeg" class="photo p1">
+        <img src="assets/IMG_0986.jpeg" class="photo p2">
+      </div>
 
-<div class="loop right">
-  <img src="assets/IMG_0818.jpeg" class="photo p3">
-  <img src="assets/IMG_0817.jpeg" class="photo p4">
-</div>
+      <div class="loop right">
+        <img src="assets/IMG_0818.jpeg" class="photo p3">
+        <img src="assets/IMG_0817.jpeg" class="photo p4">
+      </div>
 
       <div class="center"></div>
-
     </div>
-
   </div>
 
   <div class="footer">
@@ -363,30 +222,109 @@ body::before{
   <div class="star s4"></div>
 
 </div>
+
 <script>
-const audio = document.getElementById("bgm");
+document.addEventListener("DOMContentLoaded", () => {
 
-audio.volume = 0;
+  const audio = document.getElementById("bgm");
+  const lyrics = document.getElementById("lyrics");
 
-function startAudio() {
-  audio.play();
+ const lines = [
+    { time: 0, text: "" },
 
-  let vol = 0;
-  const fade = setInterval(() => {
-    if(vol < 0.35){
-      vol += 0.02;
-      audio.volume = vol;
-    } else {
-      clearInterval(fade);
+    { time: 59, text: "there's no sound" },
+
+    { time: 68, text: "but the engine's drone" },
+
+    { time: 75, text: "our minds set free" },
+
+    { time: 83, text: "to roam" },
+
+    { time: 104, text: "time (shift)" },
+
+    { time: 108, text: "we discover the entry" },
+
+    { time: 115, text: "to other planes" },
+
+    { time: 118, text: "our minds bend" },
+
+    { time: 124, text: "and our fingers fold" },
+
+    { time: 132, text: "entwined, we dream" },
+
+    { time: 140, text: "unknown" },
+
+    { time: 146, text: "time (shift)" },
+
+    { time: 150, text: "we discover the entry" },
+
+    { time: 160, text: "stay with me" },
+
+    { time: 167, text: "as we cross the empty skies" },
+
+    { time: 173, text: "come sail with me" },
+
+    { time: 196, text: "we slow down" },
+
+    { time: 203, text: "as the engines stall" },
+
+    { time: 211, text: "our eyes catch sync" },
+
+    { time: 219, text: "explode" },
+
+    { time: 225, text: "time (shift)" },
+
+    { time: 230, text: "we discover the entry" },
+
+    { time: 235, text: "to other planes" },
+
+    { time: 240, text: "time (shift)" },
+
+    { time: 244, text: "as we collide with the energy" },
+
+    { time: 251, text: "in other ways" },
+
+    { time: 255, text: "stay with me" },
+
+    { time: 261, text: "as we cross the empty skies" },
+
+    { time: 269, text: "come sail with me" },
+
+    { time: 276, text: "we play in dreams" },
+
+    { time: 283, text: "as we cross through space and time" },
+
+    { time: 291, text: "just stay with me" }
+
+  ];
+
+  audio.volume = 0;
+  audio.addEventListener("timeupdate", () => {
+    const t = audio.currentTime;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (t >= lines[i].time) {
+        lyrics.innerText = lines[i].text;
+        break;
+      }
     }
-  }, 120);
-}
+  });
 
-window.addEventListener("click", startAudio, { once:true });
-window.addEventListener("touchstart", startAudio, { once:true });
+  function startAudio() {
+    audio.play().catch(()=>{});
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.35) {
+        v += 0.02;
+        audio.volume = v;
+      } else clearInterval(fade);
+    }, 120);
+  }
+
+  window.addEventListener("click", startAudio, { once:true });
+  window.addEventListener("touchstart", startAudio, { once:true });
+
+});
 </script>
+
 </body>
 </html>
-
-
-
